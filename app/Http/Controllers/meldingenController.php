@@ -10,6 +10,21 @@ if(is_numeric($_POST['capaciteit'])) {
 
 $melder = $_POST['melder'] ?? '';
 
+$allowed_types = [
+    "achtbaan",
+    "draaiend",
+    "water",
+    "overig"
+];
+
+if(in_array($_POST['type'], $allowed_types, true)) {
+    $type = $_POST['type'];
+} else {
+    $type = "";
+}
+
+$overige_info = $_POST['overige_info'] ?? '';
+
 //1. Verbinding
 require_once '../../../config/conn.php';
 
@@ -17,11 +32,9 @@ require_once '../../../config/conn.php';
 $query = "
 
 INSERT INTO meldingen
-    (melder, capaciteit, attractie, type)
+    (melder, capaciteit, attractie, type, overige_info)
 VALUES
-    (:melder, :capaciteit, :attractie, :type)
-
-
+    (:melder, :capaciteit, :attractie, :type, :overige_info)
 
 ";
 
@@ -35,7 +48,8 @@ $statement->execute([
     ':melder' => $melder,
     ':capaciteit' => $capaciteit,
     ':attractie' => $attractie,
-    ':type' => ''
+    ':type' => $type,
+    ':overige_info' => $overige_info
 ]);
 
 

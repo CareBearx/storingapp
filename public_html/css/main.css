@@ -164,12 +164,14 @@ label{
     display: inline-block;
     min-width: 140px;
     vertical-align: top;
+
 }
 
 .form-input{
     width: 600px;
+    padding: 10px;
+  
 }
-
 
 
 
